@@ -17,7 +17,11 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
-    background-color: #F5F6FA;
+    background: #E4E7F1;
+    background: linear-gradient(90deg, #E4E7F1 0%, #F5F6FA 100%);
+    background: -moz-linear-gradient(90deg, #E4E7F1 0%, #F5F6FA 100%);
+    background: -webkit-linear-gradient(90deg, #E4E7F1 0%, #F5F6FA 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#E4E7F1", endColorstr="#F5F6FA", GradientType=1 );
 }
 
 header {
