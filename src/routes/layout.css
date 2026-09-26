@@ -1,0 +1,230 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/space-grotesk';
+
+@theme {
+	--font-sans: 'Space Grotesk Variable', 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+	--color-ink: #0a0a0a;
+	--color-ink-soft: #2a2a2a;
+	--color-paper: #f7f5f2;
+	--color-paper-deep: #efebe6;
+	--color-shell: #d9cfc4;
+	--color-pearl: #f4f7ff;
+	--color-lagoon: #9fd6d0;
+	--color-orchid: #d4b8e8;
+	--color-sunrise: #f0c9a8;
+	--color-sea: #a8c4e8;
+}
+
+@layer base {
+	html {
+		color-scheme: light;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		text-rendering: optimizeLegibility;
+	}
+
+	body {
+		margin: 0;
+		min-height: 100dvh;
+		font-family: var(--font-sans);
+		color: var(--color-ink);
+		background: var(--color-paper);
+	}
+
+	::selection {
+		background: color-mix(in oklab, var(--color-lagoon) 45%, white);
+		color: var(--color-ink);
+	}
+
+	a {
+		color: inherit;
+	}
+}
+
+/* Soft seashell iridescence — shared family with Identechal, slightly warmer drift */
+.iridescent-stage {
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+	background: radial-gradient(
+		120% 80% at 50% -10%,
+		#ffffff 0%,
+		var(--color-paper) 55%,
+		var(--color-paper-deep) 100%
+	);
+}
+
+.iridescent-stage::before,
+.iridescent-stage::after {
+	content: '';
+	position: absolute;
+	inset: -20%;
+	z-index: -1;
+	pointer-events: none;
+	will-change: transform, opacity;
+}
+
+.iridescent-stage::before {
+	background:
+		radial-gradient(
+			closest-side at 18% 28%,
+			color-mix(in oklab, var(--color-pearl) 78%, transparent),
+			transparent 70%
+		),
+		radial-gradient(
+			closest-side at 82% 18%,
+			color-mix(in oklab, var(--color-sunrise) 40%, transparent),
+			transparent 68%
+		),
+		radial-gradient(
+			closest-side at 58% 72%,
+			color-mix(in oklab, var(--color-lagoon) 36%, transparent),
+			transparent 72%
+		),
+		radial-gradient(
+			closest-side at 30% 80%,
+			color-mix(in oklab, var(--color-orchid) 32%, transparent),
+			transparent 70%
+		),
+		radial-gradient(
+			closest-side at 90% 58%,
+			color-mix(in oklab, var(--color-sea) 34%, transparent),
+			transparent 68%
+		);
+	filter: blur(28px) saturate(1.05);
+	opacity: 0.55;
+	animation: glow-drift 24s ease-in-out infinite alternate;
+}
+
+.iridescent-stage::after {
+	background:
+		radial-gradient(
+			closest-side at 46% 42%,
+			color-mix(in oklab, white 70%, transparent),
+			transparent 65%
+		),
+		radial-gradient(
+			closest-side at 72% 56%,
+			color-mix(in oklab, var(--color-shell) 30%, transparent),
+			transparent 70%
+		);
+	filter: blur(18px);
+	opacity: 0.35;
+	mix-blend-mode: soft-light;
+	animation: glow-sheen 18s ease-in-out infinite alternate;
+}
+
+@keyframes glow-drift {
+	0% {
+		transform: translate3d(-2%, -1%, 0) scale(1);
+	}
+	50% {
+		transform: translate3d(2%, 1.5%, 0) scale(1.04);
+	}
+	100% {
+		transform: translate3d(1%, -2%, 0) scale(1.02);
+	}
+}
+
+@keyframes glow-sheen {
+	0% {
+		transform: translate3d(2%, 1%, 0) rotate(0deg);
+		opacity: 0.28;
+	}
+	100% {
+		transform: translate3d(-3%, -1%, 0) rotate(8deg);
+		opacity: 0.42;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.iridescent-stage::before,
+	.iridescent-stage::after {
+		animation: none;
+	}
+}
+
+.name-wordmark {
+	letter-spacing: 0.18em;
+	text-indent: 0.18em;
+}
+
+.text-link {
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.22em;
+	transition:
+		color 160ms ease,
+		text-decoration-color 160ms ease;
+}
+
+.text-link:hover,
+.text-link:focus-visible {
+	color: var(--color-ink);
+	text-decoration-color: color-mix(in oklab, var(--color-lagoon) 70%, var(--color-ink));
+}
+
+.text-link:focus-visible {
+	outline: 2px solid color-mix(in oklab, var(--color-sea) 70%, var(--color-ink));
+	outline-offset: 4px;
+	border-radius: 2px;
+}
+
+.portrait-frame {
+	position: relative;
+	border-radius: 1.75rem;
+	padding: 0.35rem;
+	background: linear-gradient(
+		145deg,
+		color-mix(in oklab, var(--color-lagoon) 55%, white),
+		color-mix(in oklab, var(--color-orchid) 45%, white),
+		color-mix(in oklab, var(--color-sunrise) 50%, white),
+		color-mix(in oklab, var(--color-sea) 45%, white)
+	);
+	box-shadow:
+		0 18px 40px color-mix(in oklab, var(--color-ink) 10%, transparent),
+		0 2px 8px color-mix(in oklab, var(--color-ink) 6%, transparent);
+}
+
+.portrait-frame img {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: 1.45rem;
+	object-fit: cover;
+	aspect-ratio: 1;
+	background: var(--color-paper-deep);
+}
+
+.social-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 2.25rem;
+	height: 2.25rem;
+	border-radius: 9999px;
+	color: var(--color-ink-soft);
+	background: color-mix(in oklab, white 55%, transparent);
+	border: 1px solid color-mix(in oklab, var(--color-ink) 8%, transparent);
+	transition:
+		transform 160ms ease,
+		color 160ms ease,
+		background 160ms ease,
+		border-color 160ms ease;
+}
+
+.social-icon:hover,
+.social-icon:focus-visible {
+	transform: translateY(-0.15rem);
+	color: var(--color-ink);
+	background: white;
+	border-color: color-mix(in oklab, var(--color-lagoon) 50%, var(--color-ink));
+}
+
+.social-icon:focus-visible {
+	outline: 2px solid color-mix(in oklab, var(--color-sea) 70%, var(--color-ink));
+	outline-offset: 3px;
+}
+
+.social-icon:active {
+	transform: translateY(-0.04rem);
+}
